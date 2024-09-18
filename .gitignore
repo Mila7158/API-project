@@ -3,3 +3,5 @@ node_modules
 build
 .DS_Store
 *.db
+other-commands.md
+github-commands.md
