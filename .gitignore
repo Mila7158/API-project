@@ -5,3 +5,5 @@ build
 *.db
 other-commands.md
 github-commands.md
+database-commands.md
+fetch-examples.md
