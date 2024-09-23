@@ -3,6 +3,50 @@ const { Model, Validator } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
+
+//-----------------------------------------------------------------------
+//FROM VIDEO "AUTHENTICATE ME BACKEND WALKTHROUGH"
+
+    // validatePassword(password) {
+    //   return bcrypt.compareSync(password, this.hashedPassword.toString());
+    // }
+
+    // static getCurrentUserById(id) {
+    //   return User.scope("currentUser").findByPk(id);
+    // }
+
+    // static async login({ credential, password }) {
+    //   const { Op } = require('sequelize');
+    //   const user = await User.scope("loginUser").findOne({
+    //     where: {
+    //       [Op.or]: {
+    //         username: credential,
+    //         email: credential
+    //       }
+    //     }
+    //   });
+    //   if (user && user.validatePassword(password)) {
+    //    return await User.scope('currentUser').findByPk(user.id);
+    //   }
+    // }
+
+    // static async signup({ username, email, password }) {
+    //   const hashedPassword = bcrypt.hashSync(password);
+    //   const user = await User.create({
+    //     username, 
+    //     email,
+    //     hashedPassword,
+    //     firstName,
+    //     lastName
+    //   });
+    //   return await User.scope('currentUser').findByPk(user.id);
+    // }
+
+
+//FROM VIDEO "AUTHENTICATE ME BACKEND WALKTHROUGH"
+
+//----------------------------------------------------------------------------------
+
     static associate(models) {
       // define association here
       User.hasMany(models.Booking, {foreignKey: 'userId'});
@@ -20,10 +64,16 @@ module.exports = (sequelize, DataTypes) => {
       firstName: {
         type: DataTypes.STRING,
         allowNull: false,
+        validate: {
+          len: [2, 300],
+        },
       },
       lastName: {
         type: DataTypes.STRING,
         allowNull: false,
+        validate: {
+          len: [2, 300],
+        },
       },
       username: {
         type: DataTypes.STRING,
@@ -63,6 +113,14 @@ module.exports = (sequelize, DataTypes) => {
           exclude: ['hashedPassword', 'email', 'createdAt', 'updatedAt'],
         },
       },
+      scopes: {
+        currentUser: {
+          attributes: { exclude: ["hashedPassword"] }
+        },
+        loginUser: {
+          attributes: {}
+        }
+      }
     }
   );
   return User;
