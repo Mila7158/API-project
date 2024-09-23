@@ -34,10 +34,13 @@ const router = express.Router();
 // Sign up
 //-------------------------------------------------------------------
 
-router.post('/', validateSignup, async (req, res) => {
+router.post(
+  '/', 
+  validateSignup, 
+  async (req, res) => {
       const { email, password, username, firstName, lastName } = req.body;
-      const hashedPassword = bcrypt.hashSync(password);
-      const user = await User.create({ email, username, hashedPassword, firstName, lastName });
+      // const hashedPassword = bcrypt.hashSync(password);
+      const user = await User.signup({ email, username, password, firstName, lastName });
   
       const safeUser = {
         id: user.id,
