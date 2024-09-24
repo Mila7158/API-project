@@ -1,5 +1,6 @@
 'use strict';
 const { Model, Validator } = require('sequelize');
+const bcrypt = require('bcryptjs');
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
@@ -30,22 +31,22 @@ module.exports = (sequelize, DataTypes) => {
     //   }
     // }
 
-    // static async signup({ username, email, password }) {
-    //   const hashedPassword = bcrypt.hashSync(password);
-    //   const user = await User.create({
-    //     username, 
-    //     email,
-    //     hashedPassword,
-    //     firstName,
-    //     lastName
-    //   });
-    //   return await User.scope('currentUser').findByPk(user.id);
-    // }
-
-
 //FROM VIDEO "AUTHENTICATE ME BACKEND WALKTHROUGH"
 
 //----------------------------------------------------------------------------------
+    static async signup({ username, email, password, firstName, lastName }) {
+      const hashedPassword = bcrypt.hashSync(password);
+      const user = await User.create({
+        username, 
+        email,
+        hashedPassword,
+        firstName,
+        lastName
+      });
+      return await User.scope('currentUser').findByPk(user.id);
+    }
+
+
 
     static associate(models) {
       // define association here
@@ -98,7 +99,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       hashedPassword: {
-        type: DataTypes.STRING.BINARY,
+        type: DataTypes.STRING,
         allowNull: false,
         validate: {
           len: [60, 60],
@@ -113,15 +114,18 @@ module.exports = (sequelize, DataTypes) => {
           exclude: ['hashedPassword', 'email', 'createdAt', 'updatedAt'],
         },
       },
-      scopes: {
-        currentUser: {
-          attributes: { exclude: ["hashedPassword"] }
-        },
-        loginUser: {
-          attributes: {}
-        }
+          scopes: {
+      currentUser: {
+        attributes: { exclude: ["hashedPassword"] }
+      },
+      loginUser: {
+        attributes: {}
       }
     }
+    },
+
+
+    
   );
   return User;
 };
