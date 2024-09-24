@@ -122,10 +122,7 @@ module.exports = (sequelize, DataTypes) => {
         attributes: {}
       }
     }
-    },
-
-
-    
+    },    
   );
   return User;
 };
