@@ -26,15 +26,16 @@ module.exports = (sequelize, DataTypes) => {
     spotId: DataTypes.INTEGER,
     userId: DataTypes.INTEGER,
     review: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false
     },
     stars: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      // validate: {
-      //   less than 5
-      // }
+      validate: {
+        min: 1,
+        max: 5
+      }
     }
   }, {
     sequelize,
