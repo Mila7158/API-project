@@ -22,6 +22,22 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),       
       },
+      {
+        spotId: 1,
+        userId: 2,
+        review: "It's nice place",
+        stars: 4,
+        createdAt: new Date(),
+        updatedAt: new Date(),       
+      },
+      {
+        spotId: 1,
+        userId: 3,
+        review: "It's amazing!",
+        stars: 5,
+        createdAt: new Date(),
+        updatedAt: new Date(),       
+      },
     ], options);
     
   },
