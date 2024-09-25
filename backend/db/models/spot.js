@@ -21,12 +21,13 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: "CASCADE"
        });
 
-      Spot.belongsTo(models.User, { foreignKey: 'userId' })
+      Spot.belongsTo(models.User, { foreignKey: 'ownerId' })
     }
   }
   Spot.init({
     ownerId: {
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
+      allowNull: false
     },
     address: {
       type: DataTypes.STRING,
@@ -57,7 +58,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     description: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false
     },
     price: {

@@ -2,7 +2,8 @@
 
 /** @type {import('sequelize-cli').Migration} */
 
-const { User } = require('../models');
+const { User, Spot, SpotImage } = require('../models');
+
 const bcrypt = require("bcryptjs");
 
 let options = {};
@@ -12,15 +13,30 @@ if (process.env.NODE_ENV === 'production') {
 
 module.exports = {
   async up (queryInterface, Sequelize) {
-    /**
-     * Add seed commands here.
-     *
-     * Example:
-     * await queryInterface.bulkInsert('People', [{
-     *   name: 'John Doe',
-     *   isBetaMember: false
-     * }], {});
-    */
+    await SpotImage.bulkCreate([
+      {
+        spotId: 1,
+        url: "img1.png",
+        preview: true,
+        createdAt: new Date(),
+        updatedAt: new Date(),       
+      },
+      {
+        spotId: 1,
+        url: "img2.png",
+        preview: false,
+        createdAt: new Date(),
+        updatedAt: new Date(),       
+      },
+      {
+        spotId: 1,
+        url: "img3.png",
+        preview: false,
+        createdAt: new Date(),
+        updatedAt: new Date(),       
+      },
+    ], options);
+    
   },
 
   async down (queryInterface, Sequelize) {

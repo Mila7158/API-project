@@ -75,6 +75,8 @@ app.use((err, _req, _res, next) => {
   }
   next(err);
 });
+//-------------------------------------------------
+//Comment-in when in productiion
 
 // Error formatter (original)
 // app.use((err, _req, res, _next) => {
@@ -89,7 +91,7 @@ app.use((err, _req, _res, next) => {
 // });
 
 //-------------------------------------------------
-//  "username": "username must be unique"
+//
 
 
 // Error formatter
